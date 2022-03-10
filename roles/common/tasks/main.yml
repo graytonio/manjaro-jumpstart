@@ -1,0 +1,100 @@
+- name: "Update All Packages"
+  become: yes
+  pacman:
+    update_cache: yes
+    upgrade: yes
+
+- name: "Install Official Packages"
+  become: yes
+  pacman:
+    name:
+      - vim
+      - alacritty
+      - fish
+      - python-pip
+      - git
+      - bat
+      - exa
+      - flatpak
+      - starship
+
+- name: "Install AUR Packages"
+  become: yes
+  shell:
+    cmd: "pamac build {{ item }} --no-confirm"
+  with_items:
+    - visual-studio-code-bin
+    - brave-bin
+    - via-bin
+
+- name: "Remove Unwanted Packages"
+  become: yes
+  pacman:
+    name:
+      - lollypop
+      - gnome-chess
+      - cheese
+      - quadrapassel
+      - iagno
+      - gnome-mines
+
+- name: "Install Flatpak Packages"
+  flatpak:
+    name:
+      - com.discordapp.Discord
+      - com.spotify.Client
+
+- name: "Create Repos Folder"
+  file:
+    path: "{{ ansible_user_dir }}/Documents/repos"
+    state: directory
+    mode: '0775'
+
+- name: "Clone Config Repo"
+  git:
+    repo: 'https://github.com/graytonio/linux-configs.git'
+    dest: "{{ ansible_user_dir }}/Documents/repos/linux-configs"
+
+- name: "Remove Existing Config Folders"
+  file:
+    path: "{{ ansible_user_dir }}/.config/{{ item }}"
+    state: absent
+  with_items:
+    - alacritty
+    - fish
+    - starship
+    - ranger
+
+- name: "Link Configs"
+  file:
+    src: "{{ ansible_user_dir }}/Documents/repos/linux-configs/{{ item }}"
+    dest: "{{ ansible_user_dir }}/.config/{{ item }}"
+    owner: "{{ ansible_user_uid }}"
+    group: "{{ ansible_user_gid }}"
+    state: link
+  with_items:
+    - alacritty
+    - fish
+    - starship
+    - ranger
+
+- name: "Link Wallpapers"
+  file:
+    src: "{{ ansible_user_dir }}/Documents/repos/linux-configs/wallpapers"
+    dest: "{{ ansible_user_dir }}/Documents/wallpapers"
+    owner: "{{ ansible_user_uid }}"
+    group: "{{ ansible_user_gid }}"
+    state: link
+
+- name: "Install pywal"
+  become: yes
+  pip:
+    name: 
+      - pywal
+      - ueberzug
+
+- name: "Configure .xinitrc"
+  lineinfile:
+    path: "{{ ansible_user_dir }}/.xinitrc"
+    regexp: '^wal -R'
+    line: wal -R

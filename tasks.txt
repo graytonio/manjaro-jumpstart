@@ -1,0 +1,30 @@
+#1. Install Vim from packages-
+#2. Build visual-studio-code-bin from pamac-
+3. Install ansible from packages
+#4. Install alacritty from packages-
+#5. Install fish shell from packages-
+#6. Configure alacritty
+#7. Configure fish
+#8. Install exa from packages-
+#9. Install bat from packages-
+#10. Install starship prompt
+#11. Configure starship
+#12. Build brave-bin from pamac-
+#14. Remove lollypop-
+#15. Remove gnome-chess-
+#16. Remove cheese-
+#17. Remove quadrapassel-
+#18. Remove iagno-
+#19. Remove gnome-mines-
+#20. Disable Dash to Dock Gnome extension
+#21. Enable Dash to Panel Gnome extension
+#22. Disable pamac updates indicator Gnome extension
+#23. Enable WinTile Gnome extension
+#24. Install discord from flatpak
+#25. Install spotify from flatpak
+#26. Build via-bin from pamac-
+#27. Install python-pip from packages-
+#28. Add wal -R to .xinitrc
+#29. Link configs/wallpapers to ~/Documents/wallpapers
+#30. Install pywal from pip
+31. Install petermosmans.customize-gnome from ansible galaxy
