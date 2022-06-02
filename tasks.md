@@ -1,0 +1,20 @@
+- [x] Update All packages
+- [ ] Update Nvidia Drivers
+- [x] Install Brave Browser Package
+- [x] Install Steam
+- [x] Install Flatpak
+- [x] Install libpamac-flatpak-plugin
+- [x] Install dev.goats.xivlauncher via flatpak
+- [x] Install vim
+- [x] Install alacritty
+- [x] Install fish
+- [ ] Set fish as default shell
+- [x] Install starship prompt
+- [x] Install exa, bat
+- [ ] Pull in linux configs
+- [x] Install discord via flatpak
+- [x] Install vscode via aur
+- [x] Install go
+- [x] Install gopls
+- [x] Install nodejs
+- [x] Install npm

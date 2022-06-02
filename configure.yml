@@ -3,4 +3,9 @@
 - name: Configure Manjaro Installation
   hosts: localhost
   roles:
-    - common
+    - role: common
+      tags: [always]
+    - role: gaming
+      tags: [gaming]
+    - role: dev
+      tags: [dev]

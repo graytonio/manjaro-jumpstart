@@ -1,42 +1,34 @@
 - name: "Update All Packages"
-  become: yes
+  become: true
   pacman:
-    update_cache: yes
-    upgrade: yes
+    update_cache: true
+    upgrade: true
 
 - name: "Install Official Packages"
-  become: yes
+  become: true
   pacman:
     name:
       - vim
       - alacritty
       - fish
       - python-pip
+      - ranger
       - git
       - bat
       - exa
       - flatpak
+      - libpamac-flatpak-plugin
       - starship
+      - brave-browser
+      - ttf-hack
+      - noto-font-emoji
 
 - name: "Install AUR Packages"
-  become: yes
+  become: true
   shell:
     cmd: "pamac build {{ item }} --no-confirm"
   with_items:
-    - visual-studio-code-bin
-    - brave-bin
     - via-bin
-
-- name: "Remove Unwanted Packages"
-  become: yes
-  pacman:
-    name:
-      - lollypop
-      - gnome-chess
-      - cheese
-      - quadrapassel
-      - iagno
-      - gnome-mines
 
 - name: "Install Flatpak Packages"
   flatpak:
@@ -48,11 +40,13 @@
   file:
     path: "{{ ansible_user_dir }}/Documents/repos"
     state: directory
-    mode: '0775'
+    owner: "{{ ansible_user_uid }}"
+    group: "{{ ansible_user_gid }}"
+    mode: "0775"
 
 - name: "Clone Config Repo"
   git:
-    repo: 'https://github.com/graytonio/linux-configs.git'
+    repo: "https://github.com/graytonio/linux-configs.git"
     dest: "{{ ansible_user_dir }}/Documents/repos/linux-configs"
 
 - name: "Remove Existing Config Folders"
@@ -87,14 +81,14 @@
     state: link
 
 - name: "Install pywal"
-  become: yes
+  become: true
   pip:
-    name: 
+    name:
       - pywal
       - ueberzug
 
 - name: "Configure .xinitrc"
   lineinfile:
     path: "{{ ansible_user_dir }}/.xinitrc"
-    regexp: '^wal -R'
+    regexp: "^wal -R"
     line: wal -R

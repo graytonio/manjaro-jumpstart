@@ -1,0 +1,20 @@
+- name: "Install Official Packages"
+  become: true
+  pacman:
+    name:
+      - steam
+      - lutris
+      - gamemode
+      - gamescope
+      - linux-steam-integration
+      - mangohud
+      - python-evdev
+      - vkd3d
+      - wine
+      - winetricks
+      - xorg-xgamma
+
+- name: "Install Flatpak Packages"
+  flatpak:
+    name:
+      - dev.goats.xivlauncher

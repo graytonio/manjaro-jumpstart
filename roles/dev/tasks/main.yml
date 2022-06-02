@@ -1,0 +1,15 @@
+- name: "Install Packages for Development"
+  become: true
+  pacman:
+    name:
+      - go
+      - gopls
+      - nodejs
+      - npm
+
+- name: "Install AUR Packages"
+  become: true
+  shell:
+    cmd: "pamac build {{ item }} --no-confirm"
+  with_items:
+    - visual-studio-code-bin
